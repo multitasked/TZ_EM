@@ -39,7 +39,7 @@ def del_all_data() -> bool:
 
 
 def del_entry_data() -> bool:
-    ''' Удалить запись справочника '''
+    ''' Удалить запись справочника по индексу'''
     data = get_all_data()
     len_ = len(data)
 
@@ -52,7 +52,7 @@ def del_entry_data() -> bool:
 
 
 def updata_entry_data() -> bool:
-    ''' Изменить запись '''
+    ''' Изменить запись по индексу '''
     data = get_all_data()
     len_ = len(data)
 

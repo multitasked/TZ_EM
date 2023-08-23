@@ -1,25 +1,23 @@
 import sys
 from subprocess import call
 from pandas import DataFrame
-
 from simple_term_menu import TerminalMenu
-
 from service import get_entry_data, get_all_data, get_interval_data
 from service import add_entry_data, del_all_data, del_entry_data, updata_entry_data
 
 
-# Опции меню
+# Главное меню
 MUNE_1 = "1. Поиск записи"
 MUNE_2 = "2. Добавить запись"
 MUNE_3 = "3. Редактировать записи"
 MUNE_4 = "4. Выход"
 
-# Опции подменю_1 (1. Поиск записи)
+# Подменю поиска (1. Поиск записи)
 SUBMUNE_1_1 = "1. Найти по совпадению"
 SUBMUNE_1_2 = "2. Показать все записи"
 SUBMUNE_1_3 = "3. Назад"
 
-# Опции подменю_3 (3. Редактировать записи)
+# Подменю редактирования (3. Редактировать записи)
 SUBMUNE_3_1 = "1. Изменить запись"
 SUBMUNE_3_2 = "2. Удалить запись"
 SUBMUNE_3_3 = "3. Удалить все записи"
@@ -36,7 +34,7 @@ SUBMUNE_0_3 = " Назад"
 
 # ГЛАВНОЕ МЕНЮ
 def menu() -> None:
-    ''' Вывод меню и выбор пользователем элемента меню '''
+    ''' Вывод главного меню '''
     try:
         while(True):
             title('Главное меню')  
@@ -61,9 +59,8 @@ def menu() -> None:
 
 
 # ПОДМЕНЮ
-# Меню поиска записей в телефонной книге
 def sub_menu_1() -> None:
-    ''' Вывод подменю первой опции и выбор пользователем элемента подменю '''
+    ''' Вывод подменю поиска записей '''
     while(True):
         title('Поиск записи')  
 
@@ -86,9 +83,8 @@ def sub_menu_1() -> None:
             break
 
 
-# Меню редактирования телефонной книги
 def sub_menu_3() -> None:
-    ''' Вывод подменю третьей опции и выбор пользователем элемента подменю '''
+    ''' Вывод подменю редактирования телефонного справочника '''
     while(True):
         title('Редактировать записи')  
 
@@ -119,7 +115,7 @@ def sub_menu_3() -> None:
 
 # ПАГИНАЦИЯ
 def pagination_menu(data: DataFrame, start_index: int, end_index: int) -> None:
-    ''' Пагинация по страницам поиска телефонных контактов '''
+    ''' Меню пагинации по страницам поиска телефонных контактов '''
     title('Поиск записи')
 
     len_ = len(data)
@@ -142,9 +138,11 @@ def pagination_menu(data: DataFrame, start_index: int, end_index: int) -> None:
         choice = TerminalMenu(options_submune).show()
 
         if options_submune[choice][2:] == SUBMUNE_0_1:
+            title('Поиск записи')
             start_index, end_index = pagination_next(start_index, end_index, PAGINATION_STEP, len_)
             get_interval_data(data, start_index, end_index)
         elif options_submune[choice][2:] == SUBMUNE_0_2:
+            title('Поиск записи')
             start_index, end_index = pagination_previous(start_index, end_index, PAGINATION_STEP, PAGINATION_START)
             get_interval_data(data, start_index, end_index)
         elif options_submune[choice][2:] == SUBMUNE_0_3:
@@ -152,9 +150,7 @@ def pagination_menu(data: DataFrame, start_index: int, end_index: int) -> None:
 
 
 def pagination_next(start: int, end: int, step: int, len: int) -> None:
-    ''' Пагинация: следующая страница '''
-    title('Поиск записи')
-       
+    ''' Пагинация: следующая страница '''       
     if end >= len: 
         end == len
         return start, end    
@@ -163,9 +159,7 @@ def pagination_next(start: int, end: int, step: int, len: int) -> None:
 
 
 def pagination_previous(start: int, end: int, step: int, beginning: int) -> None:
-    ''' Пагинация предыдущая страница '''
-    title('Поиск записи')
-
+    ''' Пагинация: предыдущая страница '''
     start, end = start - step, start
     if start < beginning:
         start, end = beginning, step

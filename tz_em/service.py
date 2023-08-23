@@ -1,12 +1,12 @@
 # Файл обработки и выдачи данный
 from subprocess import call
 from pandas import DataFrame 
-from dao import file_csv, COLUMNS
+from dao import FileCSV, COLUMNS
 
 
 def get_all_data() -> DataFrame:
     ''' Получить все записи справочника '''
-    return file_csv._read()
+    return FileCSV._read()
 
 
 def get_interval_data(data: DataFrame, start_index: int, end_index: int) -> None:
@@ -33,7 +33,7 @@ def get_entry_data() -> DataFrame:
 
 def del_all_data() -> bool:
     ''' Удалить все записи справочника '''
-    file_csv._remove_all()
+    FileCSV._remove_all()
     return True
 
 
@@ -46,7 +46,7 @@ def del_entry_data() -> bool:
     del_index = int(input(f"Выберите номер записи от 1 до {len_}: "))
     data = data[data.index != del_index] 
 
-    file_csv._rewrite(data)
+    FileCSV._rewrite(data)
     return True
 
 
@@ -67,7 +67,7 @@ def updata_entry_data() -> bool:
     updata = input(f"Заменить на: ")
 
     data.iat[upd_index - 1, upd_column - 1] = updata
-    file_csv._rewrite(data)
+    FileCSV._rewrite(data)
     return True
 
 
@@ -79,7 +79,7 @@ def add_entry_data() -> bool:
 
     entry = input_data_entry()
 
-    file_csv._write_to_end(entry)
+    FileCSV._write_to_end(entry)
     return True
     
 

@@ -7,7 +7,7 @@ from pandas import read_csv, DataFrame
 COLUMNS = ['Фамилия', 'Имя', 'Отчество', 'Компания', 'Рабочий тел', 'Личный тел']
 
 
-class file_csv:
+class FileCSV:
     NAME_FILE = 'telephone_directory.csv'
 
     # Чтение из CSV файла

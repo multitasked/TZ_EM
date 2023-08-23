@@ -1,8 +1,11 @@
+from menu import menu
 
 
-def menu():
-    print("dsf!")
+def main() -> None:
+    ''' Запуск меню '''
+    menu()
 
 
 if __name__ == "__main__":
-    menu()
+    main()
+
